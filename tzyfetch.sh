@@ -25,10 +25,10 @@ lightcyan='[1;96m'
 declare -A alldistros
 
 alldistros[almalinux]="$red ?_?"
-alldistros[alpine]="$red ?_?"
-alldistros[altlinux]="$red ?_?"
-alldistros[amzn]="$red ?_?"
-alldistros[anarchy]="$red ?_?"
+alldistros[alpine]="$blue <^>"
+alldistros[altlinux]="$yellow r,l"
+alldistros[amzn]="$yellow |Y|"
+alldistros[anarchy]="$blue /-\\"
 alldistros[arch]="$blue /.\\"
 alldistros[arch32]="$blue /.\\"
 alldistros[archcraft]="$blue /.\\"
@@ -39,10 +39,10 @@ alldistros[bazzite]="$purple Γ+)"
 alldistros[blackarch]="$lightblue /|\\"
 alldistros[blendos]="$red ?_?"
 alldistros[bodhi]="$red ?_?"
-alldistros[cachyos]="$red ?_?"
+alldistros[cachyos]="$green C:\`"
 alldistros[centos]="$red ?_?"
 alldistros[centos_stream]="$red ?_?"
-alldistros[chimera]="$red ?_?"
+alldistros[chimera]="$red {*}"
 alldistros[clear-linux-os]="$red ?_?"
 alldistros[debian]="$red (@)"
 alldistros[Deepin]="$red ?_?"
@@ -58,7 +58,7 @@ alldistros[fedoraremixforwsl]="$blue (f)"
 alldistros[freebsd]="$red ?_?"
 alldistros[funtoo]="$red ?_?"
 alldistros[garuda]="$red ?_?"
-alldistros[gentoo]="$red ?_?"
+alldistros[gentoo]="$gray )°)"
 alldistros[ghostbsd]="$red ?_?"
 alldistros[gnoppix]="$red ?_?"
 alldistros[hyperbola]="$red ?_?"
@@ -95,7 +95,7 @@ alldistros[rocky]="$red ?_?"
 alldistros[slackware]="$red ?_?"
 alldistros[sled]="$red ?_?"
 alldistros[sles]="$red ?_?"
-alldistros[solaris]="$red ?_?"
+alldistros[solaris]="$red \\|/"
 alldistros[solus]="$red ?_?"
 alldistros[steamos]="$blue •))"
 alldistros[tails]="$purple :D="
@@ -147,7 +147,7 @@ EOF
 EOF
         else
             cat <<EOF
-  $1$2  ${distro_name} ${bold}${gray}:: ${white}${USER}@${HOST} ${gray}:: ${white}${distro_kernel} ${gray}:: ${white}${UPS} sec${reset}
+  $1$2  ${distro_name} ${bold}${gray}:: ${white}${USER}$1@${white}${HOST} ${gray}:: ${white}${distro_kernel} ${gray}:: ${white}${UPS} sec${reset}
 EOF
         fi
         exit
