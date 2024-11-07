@@ -1,5 +1,32 @@
 #!/bin/sh
 
+# Function to display help text
+Help()
+{
+   echo
+   echo "tzyfetch is an extremely simple fetch utility, built for a single line output with three character distro logo. Default behaviour will return the logo and name of your distro, plus system and session specific information."
+   echo
+   echo "Usage:"
+   echo "tzyfetch <?options>"
+   echo
+   echo "Options:"
+   echo "-h, --help     Hello"   
+   echo "-d <?distro>   Return the logo and name for a specifically specified distro."
+   echo "-d all         Print the logos and names for all distros tzyfetch knows about"
+   echo
+}
+
+# Show help if requested
+while getopts ":h" option; do
+   case $option in
+      h)
+         Help
+         exit
+   esac
+done
+
+# Main Script
+
 # Styles
 bold='[1m'
 reset='[0m'
@@ -26,7 +53,7 @@ declare -A alldistros
 
 alldistros[almalinux]="$blue {X}"
 alldistros[alpine]="$blue <^>"
-alldistros[altlinux]="$yellow r,l" #?
+alldistros[altlinux]="$yellow r,l"
 alldistros[amzn]="$yellow |Y|"
 alldistros[anarchy]="$blue /-\\"
 alldistros[arch]="$blue /.\\"
@@ -35,23 +62,24 @@ alldistros[archcraft]="$blue /.\\"
 alldistros[arcolinux]="$blue /,\\"
 alldistros[arkane]="$red ^,^"
 alldistros[artix]="$blue />\\"
-alldistros[bazzite]="$purple Γ+)" #?
+alldistros[bazzite]="$purple Γ+)"
 alldistros[blackarch]="$lightblue /|\\"
 alldistros[blendos]="$green (B)"
-alldistros[bodhi]="$green '\'" #?
-alldistros[cachyos]="$green C:\`" #?
+alldistros[bodhi]="$green '\'"
+alldistros[cachyos]="$green C:\`"
 alldistros[centos]="$blue <+>"
 alldistros[centos_stream]="$blue <+>"
 alldistros[chimera]="$red °w°"
-alldistros[clear-linux-os]="$lightblue |\Γ" #?
+alldistros[chromeos]="$blue (o)"
+alldistros[clear-linux-os]="$lightblue |\Γ"
 alldistros[debian]="$red (@)"
-alldistros[Deepin]="$lightblue (%)" #?
-alldistros[devuan]="$red >cv" #?
+alldistros[Deepin]="$lightblue (%)"
+alldistros[devuan]="$red >cv"
 alldistros[dragonfly]="$red =I="
 alldistros[elementary]="$lightblue (e)"
 alldistros[endeavouros]="$purple |D)"
 alldistros[endless]="$yellow d\p"
-alldistros[eurolinux]="$blue (-)" #?
+alldistros[eurolinux]="$blue (-)"
 alldistros[exherbo]="$white °o°"
 alldistros[fedora]="$blue (f)"
 alldistros[fedoraremixforwsl]="$blue (f)"
@@ -59,35 +87,35 @@ alldistros[freebsd]="$red ^O^"
 alldistros[funtoo]="$purple f°°"
 alldistros[garuda]="$blue o\`>"
 alldistros[gentoo]="$gray >°>"
-alldistros[ghostbsd]="$blue (G)" #?
-alldistros[gnoppix]="$blue (G)" #?
+alldistros[ghostbsd]="$blue (G)"
+alldistros[gnoppix]="$blue (G)"
 alldistros[hyperbola]="$white /H/"
-alldistros[kali]="$lightblue 3c\`" #?
+alldistros[kali]="$lightblue 3c\`"
 alldistros[kaos]="$blue l<.?"
 alldistros[linuxmint]="$green lm)"
-alldistros[mageia]="$blue (°)" #?
-alldistros[manjaro]="$green (M)" #?
-alldistros[manjaro-arm]="$green (M)" #?
+alldistros[mageia]="$blue (°)"
+alldistros[manjaro]="$green (M)"
+alldistros[manjaro-arm]="$green (M)"
 alldistros[miraclelinux]="$green l|l"
 alldistros[neon]="$lightblue (•)"
 alldistros[nilrt]="$green [n]"
-alldistros[nixos]="$blue <=>" #?
+alldistros[nixos]="$blue <=>"
 alldistros[nobara]="$white n•>"
-alldistros[ol]="$red (_)" #?
-alldistros[omnios]="$white \\\`>" #?
+alldistros[ol]="$red (_)"
+alldistros[omnios]="$white \\\`>"
 alldistros[openmandriva]="$blue ((o"
 alldistros[opensuse]="$green @n>"
 alldistros[suse]="$green @n>"
 alldistros[opensuse-leap]="$green \\^/"
 alldistros[opensuse-tumbleweed]="$lightblue o/o"
-alldistros[openwrt]="$lightblue (V)" #?
+alldistros[openwrt]="$lightblue (V)"
 alldistros[parrot]="$green <\\^"
-alldistros[pclinuxos]="$blue (v)" #?
-alldistros[pengwin]="$purple (p)" #?
+alldistros[pclinuxos]="$blue (v)"
+alldistros[pengwin]="$purple (p)"
 alldistros[photon]="$gray (:)"
 alldistros[pisilinux]="$purple ^v^"
 alldistros[pop]="$lightblue P!_"
-alldistros[pureos]="$blue POS" #?
+alldistros[pureos]="$blue POS"
 alldistros[rebornos]="$lightblue <X>"
 alldistros[redox-os]="$lightblue (R)"
 alldistros[rhel]="$red _n_"
@@ -102,7 +130,7 @@ alldistros[tails]="$purple :Dc"
 alldistros[tinycore]="$gray (/)"
 alldistros[trisquel]="$blue @Y@"
 alldistros[ubuntu]="$yellow {•}"
-alldistros[ultramarine]="$blue (;)" #?
+alldistros[ultramarine]="$blue (;)"
 alldistros[vanillaos]="$yellow >*<"
 alldistros[virtuozzo]="$red ?\\z/"
 alldistros[void]="$green (\\)"
@@ -119,8 +147,8 @@ read -r KERNEL < /proc/sys/kernel/osrelease
 IFS=. read -r s _ < /proc/uptime
 UPS=$((s))
 
-# Arguments
-if [[ "$1" == "-d" ]] ; then
+# Handle distro argument
+if [[ "$1" == "-d" ]] || [[ "$1" == "-distro" ]]; then
     # Set basic info
     distro_id="$2"
     distro_name=""
