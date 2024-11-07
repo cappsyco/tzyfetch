@@ -25,7 +25,7 @@ Default behaviour will return the logo and name of your distro, plus system and 
 
     tzyfetch -d pisilinux
     tzyfetch -distro freebsd
-Outputs the logo of the specified distro ID
+Outputs the logo of the specified distro ID.
 
     tzyfetch -d all
-Outputs every distro logo and ID that tzyfetch knows
+Outputs every distro logo and ID that tzy knows.
