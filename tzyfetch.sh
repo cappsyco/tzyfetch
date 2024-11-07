@@ -7,12 +7,12 @@ Help()
    echo "tzyfetch is an extremely simple fetch utility, built for a single line output with three character distro logo. Default behaviour will return the logo and name of your distro, plus system and session specific information."
    echo
    echo "Usage:"
-   echo "tzyfetch <?options>"
+   echo "tzyfetch [options]"
    echo
    echo "Options:"
-   echo "-h, --help     Hello"   
-   echo "-d <?distro>   Return the logo and name for a specifically specified distro."
-   echo "-d all         Print the logos and names for all distros tzyfetch knows about"
+   echo "-h, --help     Hello."   
+   echo "-d [ID]   		Return the logo and name for a specifically specified distro ID."
+   echo "-d all         Print the logos and names for all distros tzyfetch knows about."
    echo
 }
 
@@ -119,7 +119,7 @@ alldistros[pureos]="$blue POS"
 alldistros[rebornos]="$lightblue <X>"
 alldistros[redox-os]="$lightblue (R)"
 alldistros[rhel]="$red _n_"
-alldistros[rocky]="$green (/,)"
+alldistros[rocky]="$green (/,"
 alldistros[slackware]="$lightblue (S)"
 alldistros[sled]="$green @n>"
 alldistros[sles]="$green @n>"
@@ -161,11 +161,15 @@ else
     distro_kernel="${KERNEL}"
 fi
 
+# Set fallback flag
+fallback=true
+
 # Find distro(s) and send to output
 for key in "${!alldistros[@]}" ; do
     set -- ${alldistros[$key]}
     # If in 'all' mode
     if [[ "$distro_id" == "all" ]] ; then
+		fallback=false
         cat <<EOF
   $1$2  ${key}${reset}
 EOF
@@ -173,6 +177,7 @@ EOF
     elif [[ "$distro_id" == "$key" ]] ; then
         # If it's a match from the argument
         if [[ "$distro_name" == "" ]] ; then
+            fallback=false
             cat <<EOF
 
   $1$2  ${key}${reset}
@@ -181,6 +186,7 @@ EOF
             exit
         # Otherwise, print the full fetch based on the user system
         else
+            fallback=false
             cat <<EOF
 
   $1$2  ${distro_name} ${bold}${gray}:: ${white}${USER}${gray}@${white}${HOST} ${gray}:: ${white}${distro_kernel} ${gray}:: ${white}${UPS}s${reset}
@@ -191,4 +197,23 @@ EOF
     fi
 done
 
+# Generic fallback
+if [[ "$fallback" == true ]] ; then
+	# If it's a failed search
+	if [[ "$distro_name" == "" ]] ; then
+		cat <<EOF
+
+  ${gray}?_?  GNUthing to see here${reset}
+        
+EOF
+        exit
+	# Must be an unknown distro or LFS
+	else
+		cat <<EOF
+
+  $1.8.  ${distro_name} ${bold}${gray}:: ${white}${USER}${gray}@${white}${HOST} ${gray}:: ${white}${distro_kernel} ${gray}:: ${white}${UPS}s${reset}
+
+EOF
+	fi
+fi
 exit
