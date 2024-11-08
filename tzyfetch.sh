@@ -50,93 +50,94 @@ lightcyan='[1;96m'
 
 # Distro config
 declare -A alldistros
+declare -a order
 
-alldistros[almalinux]="$blue {X}"
-alldistros[alpine]="$blue <^>"
-alldistros[altlinux]="$yellow r,l"
-alldistros[amzn]="$yellow |Y|"
-alldistros[anarchy]="$blue /-\\"
-alldistros[arch]="$blue /.\\"
-alldistros[arch32]="$blue /.\\"
-alldistros[archcraft]="$blue /x\\"
-alldistros[arcolinux]="$blue /,\\"
-alldistros[arkane]="$red ^,^"
-alldistros[artix]="$blue />\\"
-alldistros[bazzite]="$purple Γ+)"
-alldistros[blackarch]="$lightblue /|\\"
-alldistros[blendos]="$green (B)"
-alldistros[bodhi]="$green '\'"
-alldistros[cachyos]="$green C:\`"
-alldistros[centos]="$blue <+>"
-alldistros[centos_stream]="$blue <+>"
-alldistros[chimera]="$red °w°"
-alldistros[chromeos]="$blue (o)"
-alldistros[clear-linux-os]="$lightblue |\Γ"
-alldistros[debian]="$red (@)"
-alldistros[Deepin]="$lightblue (%)"
-alldistros[devuan]="$red >cv"
-alldistros[dragonfly]="$red =I="
-alldistros[elementary]="$lightblue (e)"
-alldistros[endeavouros]="$purple |D)"
-alldistros[endless]="$yellow d\p"
-alldistros[eurolinux]="$blue (-)"
-alldistros[exherbo]="$white °o°"
-alldistros[fedora]="$blue (f)"
-alldistros[fedoraremixforwsl]="$blue (f)"
-alldistros[freebsd]="$red ^O^"
-alldistros[funtoo]="$purple f°°"
-alldistros[garuda]="$blue o\`>"
-alldistros[gentoo]="$gray >°>"
-alldistros[ghostbsd]="$blue (G)"
-alldistros[gnoppix]="$blue (G)"
-alldistros[hyperbola]="$white /H/"
-alldistros[kali]="$lightblue 3c\`"
-alldistros[kaos]="$blue l<.?"
-alldistros[linuxmint]="$green lm)"
-alldistros[mageia]="$blue (°)"
-alldistros[manjaro]="$green (M)"
-alldistros[manjaro-arm]="$green (M)"
-alldistros[miraclelinux]="$green l|l"
-alldistros[neon]="$lightblue (•)"
-alldistros[nilrt]="$green [n]"
-alldistros[nixos]="$blue <=>"
-alldistros[nobara]="$white n•>"
-alldistros[ol]="$red (_)"
-alldistros[omnios]="$white \\\`>"
-alldistros[openmandriva]="$blue ((o"
-alldistros[opensuse]="$green @n>"
-alldistros[suse]="$green @n>"
-alldistros[opensuse-leap]="$green \\^/"
-alldistros[opensuse-tumbleweed]="$lightblue o/o"
-alldistros[openwrt]="$lightblue (V)"
-alldistros[parrot]="$green <\\^"
-alldistros[pclinuxos]="$blue (v)"
-alldistros[pengwin]="$purple (p)"
-alldistros[photon]="$gray (:)"
-alldistros[pika]="$yellow •,•"
-alldistros[pisilinux]="$purple ^v^"
-alldistros[pop]="$lightblue P!_"
-alldistros[pureos]="$blue POS"
-alldistros[rebornos]="$lightblue <X>"
-alldistros[redox-os]="$lightblue (R)"
-alldistros[rhel]="$red _n_"
-alldistros[rocky]="$green (/,"
-alldistros[slackware]="$lightblue (S)"
-alldistros[sled]="$green @n>"
-alldistros[sles]="$green @n>"
-alldistros[solaris]="$red \\|/"
-alldistros[solus]="$blue |\\)"
-alldistros[steamos]="$purple •))"
-alldistros[tails]="$purple :Dc"
-alldistros[tinycore]="$gray (/)"
-alldistros[trisquel]="$blue @Y@"
-alldistros[ubuntu]="$yellow {•}"
-alldistros[ultramarine]="$blue (;)"
-alldistros[vanillaos]="$yellow >*<"
-alldistros[virtuozzo]="$red ?\\z/"
-alldistros[void]="$green (\\)"
-alldistros[wolfi]="$red	,O,"
-alldistros[zorin]="$blue <Z>"
+order+=("almalinux") ; alldistros[almalinux]="$blue {X}"
+order+=("alpine") ; alldistros[alpine]="$blue <^>"
+order+=("altlinux") ; alldistros[altlinux]="$yellow r,l"
+order+=("amzn") ; alldistros[amzn]="$yellow |Y|"
+order+=("anarchy") ; alldistros[anarchy]="$blue /-\\"
+order+=("arch") ; alldistros[arch]="$blue /.\\"
+order+=("arch32") ; alldistros[arch32]="$blue /.\\"
+order+=("archcraft") ; alldistros[archcraft]="$blue /x\\"
+order+=("arcolinux") ; alldistros[arcolinux]="$blue /,\\"
+order+=("arkane") ; alldistros[arkane]="$red ^,^"
+order+=("artix") ; alldistros[artix]="$blue />\\"
+order+=("bazzite") ; alldistros[bazzite]="$purple Γ+)"
+order+=("blackarch") ; alldistros[blackarch]="$lightblue /|\\"
+order+=("blendos") ; alldistros[blendos]="$green (B)"
+order+=("bodhi") ; alldistros[bodhi]="$green '\'"
+order+=("cachyos") ; alldistros[cachyos]="$green C:\`"
+order+=("centos") ; alldistros[centos]="$blue <+>"
+order+=("centos_stream") ; alldistros[centos_stream]="$blue <+>"
+order+=("chimera") ; alldistros[chimera]="$red °w°"
+order+=("chromeos") ; alldistros[chromeos]="$blue (o)"
+order+=("clear-linux-os") ; alldistros[clear-linux-os]="$lightblue |\Γ"
+order+=("debian") ; alldistros[debian]="$red (@)"
+order+=("Deepin") ; alldistros[Deepin]="$lightblue (%)"
+order+=("devuan") ; alldistros[devuan]="$red >cv"
+order+=("dragonfly") ; alldistros[dragonfly]="$red =I="
+order+=("elementary") ; alldistros[elementary]="$lightblue (e)"
+order+=("endeavouros") ; alldistros[endeavouros]="$purple |D)"
+order+=("endless") ; alldistros[endless]="$yellow d\p"
+order+=("eurolinux") ; alldistros[eurolinux]="$blue (-)"
+order+=("exherbo") ; alldistros[exherbo]="$white °o°"
+order+=("fedora") ; alldistros[fedora]="$blue (f)"
+order+=("fedoraremixforwsl") ; alldistros[fedoraremixforwsl]="$blue (f)"
+order+=("freebsd") ; alldistros[freebsd]="$red ^O^"
+order+=("funtoo") ; alldistros[funtoo]="$purple f°°"
+order+=("garuda") ; alldistros[garuda]="$blue o\`>"
+order+=("gentoo") ; alldistros[gentoo]="$gray >°>"
+order+=("ghostbsd") ; alldistros[ghostbsd]="$blue (G)"
+order+=("gnoppix") ; alldistros[gnoppix]="$blue (G)"
+order+=("hyperbola") ; alldistros[hyperbola]="$white /H/"
+order+=("kali") ; alldistros[kali]="$lightblue 3c\`"
+order+=("kaos") ; alldistros[kaos]="$blue l<."
+order+=("linuxmint") ; alldistros[linuxmint]="$green lm)"
+order+=("mageia") ; alldistros[mageia]="$blue (°)"
+order+=("manjaro") ; alldistros[manjaro]="$green (M)"
+order+=("manjaro-arm") ; alldistros[manjaro-arm]="$green (M)"
+order+=("miraclelinux") ; alldistros[miraclelinux]="$green l|l"
+order+=("neon") ; alldistros[neon]="$lightblue (•)"
+order+=("nilrt") ; alldistros[nilrt]="$green [n]"
+order+=("nixos") ; alldistros[nixos]="$blue <=>"
+order+=("nobara") ; alldistros[nobara]="$white n•>"
+order+=("ol") ; alldistros[ol]="$red (_)"
+order+=("omnios") ; alldistros[omnios]="$white \\\`>"
+order+=("openmandriva") ; alldistros[openmandriva]="$blue ((o"
+order+=("opensuse") ; alldistros[opensuse]="$green @n>"
+order+=("suse") ; alldistros[suse]="$green @n>"
+order+=("opensuse-leap") ; alldistros[opensuse-leap]="$green \\^/"
+order+=("opensuse-tumbleweed") ; alldistros[opensuse-tumbleweed]="$lightblue o/o"
+order+=("openwrt") ; alldistros[openwrt]="$lightblue (V)"
+order+=("parrot") ; alldistros[parrot]="$green <\\^"
+order+=("pclinuxos") ; alldistros[pclinuxos]="$blue (v)"
+order+=("pengwin") ; alldistros[pengwin]="$purple (p)"
+order+=("photon") ; alldistros[photon]="$gray (:)"
+order+=("pika") ; alldistros[pika]="$yellow •,•"
+order+=("pisilinux") ; alldistros[pisilinux]="$purple ^v^"
+order+=("pop") ; alldistros[pop]="$lightblue P!_"
+order+=("pureos") ; alldistros[pureos]="$blue POS"
+order+=("rebornos") ; alldistros[rebornos]="$lightblue <X>"
+order+=("redox-os") ; alldistros[redox-os]="$lightblue (R)"
+order+=("rhel") ; alldistros[rhel]="$red _n_"
+order+=("rocky") ; alldistros[rocky]="$green (/,"
+order+=("slackware") ; alldistros[slackware]="$lightblue (S)"
+order+=("sled") ; alldistros[sled]="$green @n>"
+order+=("sles") ; alldistros[sles]="$green @n>"
+order+=("solaris") ; alldistros[solaris]="$red \\|/"
+order+=("solus") ; alldistros[solus]="$blue |\\)"
+order+=("steamos") ; alldistros[steamos]="$purple •))"
+order+=("tails") ; alldistros[tails]="$purple :Dc"
+order+=("tinycore") ; alldistros[tinycore]="$gray (/)"
+order+=("trisquel") ; alldistros[trisquel]="$blue @Y@"
+order+=("ubuntu") ; alldistros[ubuntu]="$yellow {•}"
+order+=("ultramarine") ; alldistros[ultramarine]="$blue (;)"
+order+=("vanillaos") ; alldistros[vanillaos]="$yellow >*<"
+order+=("virtuozzo") ; alldistros[virtuozzo]="$red \\z/"
+order+=("void") ; alldistros[void]="$green (\\)"
+order+=("wolfi") ; alldistros[wolfi]="$red	,O,"
+order+=("zorin") ; alldistros[zorin]="$blue <Z>"
 
 # Get host
 read -r HOST < /proc/sys/kernel/hostname
@@ -165,8 +166,11 @@ fi
 # Set fallback flag
 fallback=true
 
+# Blank top
+echo ""
+
 # Find distro(s) and send to output
-for key in "${!alldistros[@]}" ; do
+for key in ${order[@]} ; do
     set -- ${alldistros[$key]}
     # If in 'all' mode
     if [[ "$distro_id" == "all" ]] ; then
@@ -180,16 +184,14 @@ EOF
         if [[ "$distro_name" == "" ]] ; then
             fallback=false
             cat <<EOF
-
   $1$2  ${key}${reset}
-        
+
 EOF
             exit
         # Otherwise, print the full fetch based on the user system
         else
             fallback=false
             cat <<EOF
-
   $1$2  ${distro_name} ${bold}${gray}:: ${white}${USER}${gray}@${white}${HOST} ${gray}:: ${white}${distro_kernel} ${gray}:: ${white}${UPS}s${reset}
 
 EOF
@@ -203,18 +205,21 @@ if [[ "$fallback" == true ]] ; then
 	# If it's a failed search
 	if [[ "$distro_name" == "" ]] ; then
 		cat <<EOF
-
   ${gray}?_?  GNUthing to see here${reset}
-        
+
 EOF
         exit
 	# Must be an unknown distro or LFS
 	else
 		cat <<EOF
-
   $1.8.  ${distro_name} ${bold}${gray}:: ${white}${USER}${gray}@${white}${HOST} ${gray}:: ${white}${distro_kernel} ${gray}:: ${white}${UPS}s${reset}
-
+  
 EOF
+		exit
 	fi
 fi
+
+# Blank bottom
+echo ""
+
 exit
