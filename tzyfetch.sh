@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Function to display help text
 Help()
@@ -118,6 +118,7 @@ order+=("pika") ; alldistros[pika]="$yellow •,•"
 order+=("pisilinux") ; alldistros[pisilinux]="$purple ^v^"
 order+=("pop") ; alldistros[pop]="$lightblue P!_"
 order+=("pureos") ; alldistros[pureos]="$blue POS"
+order+=("raspbian") ; alldistros[raspbian]="$red 'O'"
 order+=("rebornos") ; alldistros[rebornos]="$lightblue <X>"
 order+=("redox-os") ; alldistros[redox-os]="$lightblue (R)"
 order+=("rhel") ; alldistros[rhel]="$red _n_"
