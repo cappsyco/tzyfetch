@@ -10,7 +10,7 @@ Help()
    echo "tzyfetch [options]"
    echo
    echo "Options:"
-   echo "-h, --help     Hello."   
+   echo "-h, --help     Hello."
    echo "-d [ID]   		Return the logo and name for a specifically specified distro ID."
    echo "-d all         Print the logos and names for all distros tzyfetch knows about."
    echo
@@ -132,6 +132,7 @@ order+=("solaris") ; alldistros[solaris]="$red \\|/"
 order+=("solus") ; alldistros[solus]="$blue |\\)"
 order+=("steamos") ; alldistros[steamos]="$purple •))"
 order+=("tails") ; alldistros[tails]="$purple :Dc"
+order+=("tencent") ; alldistros[tencent]="$blue ~∞~"
 order+=("tinycore") ; alldistros[tinycore]="$gray (/)"
 order+=("trisquel") ; alldistros[trisquel]="$blue @Y@"
 order+=("ubuntu") ; alldistros[ubuntu]="$yellow {•}"
@@ -216,7 +217,7 @@ EOF
 	else
 		cat <<EOF
   $1.8.  ${distro_name} ${bold}${gray}:: ${white}${USER}${gray}@${white}${HOST} ${gray}:: ${white}${distro_kernel} ${gray}:: ${white}${UPS}s${reset}
-  
+
 EOF
 		exit
 	fi
