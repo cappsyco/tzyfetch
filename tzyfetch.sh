@@ -10,7 +10,7 @@ Help()
    echo "tzyfetch [options]"
    echo
    echo "Options:"
-   echo "-h, --help     Hello."   
+   echo "-h, --help     Hello."
    echo "-d [ID]   		Return the logo and name for a specifically specified distro ID."
    echo "-d all         Print the logos and names for all distros tzyfetch knows about."
    echo
@@ -119,6 +119,7 @@ order+=("photon") ; alldistros[photon]="$gray (:)"
 order+=("pika") ; alldistros[pika]="$yellow •,•"
 order+=("pisilinux") ; alldistros[pisilinux]="$purple ^v^"
 order+=("pop") ; alldistros[pop]="$lightblue P!_"
+order+=("puppy") ; alldistros[puppy]="$blue :>}"
 order+=("pureos") ; alldistros[pureos]="$blue POS"
 order+=("raspbian") ; alldistros[raspbian]="$red 'O'"
 order+=("rebornos") ; alldistros[rebornos]="$lightblue <X>"
@@ -156,12 +157,14 @@ UPS=$((s))
 if [[ "$1" == "-d" ]] || [[ "$1" == "-distro" ]]; then
     # Set basic info
     distro_id="$2"
+    distro_nameid=""
     distro_name=""
     distro_kernel=""
 else
     # Set OS info
     source /etc/os-release
     distro_id="${ID}"
+    distro_nameid="${NAME,,}"
     distro_name="${PRETTY_NAME}"
     distro_kernel="${KERNEL}"
 fi
@@ -182,7 +185,7 @@ for key in ${order[@]} ; do
   $1$2  ${key}${reset}
 EOF
     # If distro has a match
-    elif [[ "$distro_id" == "$key" ]] ; then
+    elif [[ "$distro_id" == "$key" ]] || [[ "$distro_nameid" == "$key" ]] ; then
         # If it's a match from the argument
         if [[ "$distro_name" == "" ]] ; then
             fallback=false
@@ -216,7 +219,7 @@ EOF
 	else
 		cat <<EOF
   $1.8.  ${distro_name} ${bold}${gray}:: ${white}${USER}${gray}@${white}${HOST} ${gray}:: ${white}${distro_kernel} ${gray}:: ${white}${UPS}s${reset}
-  
+
 EOF
 		exit
 	fi
