@@ -52,14 +52,18 @@ lightcyan='[1;96m'
 declare -A alldistros
 declare -a order
 
+order+=("adelie") ; alldistros[adelie]="$red _/\`"
 order+=("almalinux") ; alldistros[almalinux]="$blue {X}"
 order+=("alpine") ; alldistros[alpine]="$blue <^>"
 order+=("altlinux") ; alldistros[altlinux]="$yellow r,l"
 order+=("amzn") ; alldistros[amzn]="$yellow |Y|"
 order+=("anarchy") ; alldistros[anarchy]="$blue /-\\"
+order+=("anduinos") ; alldistros[anduinos]="$blue <•>"
 order+=("arch") ; alldistros[arch]="$blue /.\\"
 order+=("arch32") ; alldistros[arch32]="$blue /.\\"
+order+=("archbang") ; alldistros[archbang]="$green /!\\"
 order+=("archcraft") ; alldistros[archcraft]="$blue /x\\"
+order+=("archman") ; alldistros[archman]="$red /*\\"
 order+=("arcolinux") ; alldistros[arcolinux]="$blue /,\\"
 order+=("arkane") ; alldistros[arkane]="$red ^,^"
 order+=("artix") ; alldistros[artix]="$blue />\\"
