@@ -5,7 +5,7 @@ tzyfetch is an extremely simple fetch utility, built for a single line output fe
 
 ### Make
     git clone https://github.com/cappsyco/tzyfetch.git
-    cd tzfetch
+    cd tzyfetch
     make install
 
 ### Arch Linux family
