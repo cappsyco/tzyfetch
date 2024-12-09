@@ -1,4 +1,4 @@
-#!/bin/bash
+3#!/bin/bash
 
 # Function to display help text
 Help()
@@ -10,9 +10,9 @@ Help()
    echo "tzyfetch [options]"
    echo
    echo "Options:"
-   echo "-h, --help     Hello."
-   echo "-d [ID]   		Return the logo and name for a specifically specified distro ID."
-   echo "-d all         Print the logos and names for all distros tzyfetch knows about."
+   echo "-h, --help      Hello."
+   echo "-d [ID]         Return the logo and name for a specifically specified distro ID."
+   echo "-d all          Print the logos and names for all distros tzyfetch knows about."
    echo
 }
 
