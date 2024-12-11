@@ -1,12 +1,14 @@
-PREFIX = /usr
+NAME = tzyfetch
+INSTALL_PATH = /usr/local/bin
 
 all:
 	@echo Supported commands: \'make install\' or \'make uninstall\'.
 
 install:
-	@mkdir -p $(DESTDIR)$(PREFIX)/bin
-	@cp -p tzyfetch.sh $(DESTDIR)$(PREFIX)/bin/tzyfetch
-	@chmod +x $(DESTDIR)$(PREFIX)/bin/tzyfetch
+	install -m 755 $(NAME).sh $(INSTALL_PATH)/$(NAME)
 
 uninstall:
-	@rm -rf $(DESTDIR)$(PREFIX)/bin/tzyfetch
+	rm -f $(INSTALL_PATH)/tzyfetch
+
+.PHONY: all install uninstall
+.SILENT: all install uninstall
