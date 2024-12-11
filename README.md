@@ -1,28 +1,63 @@
-# tzyfetch .8.
-tzyfetch is an extremely simple fetch utility, built for a single line output featuring a unique, three character distro logo.
+# **tzyfetch** .8.
+**tzyfetch** is an extremely simple fetch utility, built for a single line output featuring a unique, three character distro logo.
 
-## Install
+### **Install**
 
-### Make
-    git clone https://github.com/cappsyco/tzyfetch.git
+#### **Arch Linux Family**
+
+1. **Install via AUR:**
+	tzyfetch is available in the [AUR](https://aur.archlinux.org/packages/tzyfetch).
+	You can use your favorite AUR helper to install it. For example, with **yay**:
+    ```sh
+    yay -S tzyfetch
+    ```
+
+#### **Other Distros**
+
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/cappsyco/tzyfetch.git
+   ```
+
+   or
+
+   ```sh
+   git clone git@github.com:cappsyco/tzyfetch.git
+   ```
+
+2. **Move to the repository directory:**
+    ```sh
     cd tzyfetch
-    make install
+    ```
 
-### Arch Linux family
-[tzyfetch lives happily in the AUR](https://aur.archlinux.org/packages/tzyfetch). Use your favourite method for installation, but yay will do the job nicely.
+3. **Run the installer script:**
+    ```sh
+    sudo make install
+    ```
 
-	yay tzyfetch
+### **Usage**
 
-### Other?
-I'm figuring that out currently.
+After installing, you can use the **tzyfetch** command as follows:
 
-## Use
+- **Displays the distro logo, name, and current system information:**
+	```sh
     tzyfetch
-Default behaviour will return the logo and name of your distro, plus system and session specific information.
-
-    tzyfetch -d pisilinux
+    ```
+- **Use *-d* or *--distro* to display the logo of a specific distro ID:**
+	```sh
+    tzyfetch -d ubuntu
     tzyfetch -distro freebsd
-Outputs the logo of the specified distro ID.
-
+    ```
+- **Outputs all distro logos and IDs recognized by tzyfetch**
+	```sh
     tzyfetch -d all
-Outputs every distro logo and ID that tzyfetch knows.
+    ```
+
+### **Uninstall**
+
+To uninstall **tzyfetch**:
+
+- **Run the uninstaller script:**
+    ```sh
+    sudo make uninstall
+    ```
