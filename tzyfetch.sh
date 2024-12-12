@@ -1,4 +1,4 @@
-3#!/bin/bash
+#!/bin/bash
 
 # Function to display help text
 Help()
