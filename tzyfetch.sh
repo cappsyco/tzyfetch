@@ -1,19 +1,21 @@
 #!/usr/bin/env bash
 
 # Function to display help text
-Help()
-{
-   echo
-   echo "tzyfetch is an extremely simple fetch utility, built for a single line output with three character distro logo. Default behaviour will return the logo and name of your distro, plus system and session specific information."
-   echo
-   echo "Usage:"
-   echo "tzyfetch [options]"
-   echo
-   echo "Options:"
-   echo "-h, --help      Hello."
-   echo "-d [ID]         Return the logo and name for a specifically specified distro ID."
-   echo "-d all          Print the logos and names for all distros tzyfetch knows about."
-   echo
+Help() {
+    cat <<EOF
+
+tzyfetch is an extremely simple fetch utility, built for a single line output with a three-character distro logo.
+Default behavior returns the logo and name of your distro, plus system and session-specific information.
+
+Usage:
+  tzyfetch [options]
+
+Options:
+  -h, --help        Display this help message.
+  -d [ID]           Return the logo and name for a specific distro ID.
+  -d all            Print the logos and names for all distros tzyfetch knows about.
+
+EOF
 }
 
 # Show help if requested
@@ -28,25 +30,25 @@ done
 # Main Script
 
 # Styles
-bold='[1m'
-reset='[0m'
+bold='\033[1m'
+reset='\033[0m'
 
 # Bold colours
-black='[1;30m'
-red='[1;31m'
-green='[1;32m'
-yellow='[1;33m'
-blue='[1;34m'
-purple='[1;35m'
-cyan='[1;36m'
-white='[1;37m'
-gray='[1;90m'
-lightred='[1;91m'
-lightgreen='[1;92m'
-lightyellow='[1;93m'
-lightblue='[1;94m'
-lightmagenta='[1;95m'
-lightcyan='[1;96m'
+black='\033[1;30m'
+red='\033[1;31m'
+green='\033[1;32m'
+yellow='\033[1;33m'
+blue='\033[1;34m'
+purple='\033[1;35m'
+cyan='\033[1;36m'
+white='\033[1;37m'
+gray='\033[1;90m'
+lightred='\033[1;91m'
+lightgreen='\033[1;92m'
+lightyellow='\033[1;93m'
+lightblue='\033[1;94m'
+lightmagenta='\033[1;95m'
+lightcyan='\033[1;96m'
 
 # Distro config
 declare -A alldistros
