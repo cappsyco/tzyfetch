@@ -14,6 +14,7 @@ Options:
   -h, --help        Display this help message.
   -d, --distro [ID] Return the logo and name for a specific distro ID.
   -d, --distro all  Print the logos and names for all distros tzyfetch knows about.
+  -t, --time        Display uptime in a human-readable format.
 
 EOF
 }
@@ -23,6 +24,25 @@ GetSystemInfo() {
 	HOST=$(< /proc/sys/kernel/hostname)
     KERNEL=$(< /proc/sys/kernel/osrelease)
     UPTIME_SECONDS=$(cut -d. -f1 /proc/uptime)
+}
+
+# Function to convert seconds to human-readable format
+ConvertUptime() {
+    local total_seconds=$1
+    local days=$((total_seconds / 86400))
+    local hours=$(( (total_seconds % 86400) / 3600 ))
+    local minutes=$(( (total_seconds % 3600) / 60 ))
+    local seconds=$((total_seconds % 60))
+
+    if (( days > 0 )); then
+        echo "${days}d ${hours}h"
+    elif (( hours > 0 )); then
+        echo "${hours}h ${minutes}m"
+    elif (( minutes > 0 )); then
+        echo "${minutes}m ${seconds}s"
+    else
+        echo "${seconds}s"
+    fi
 }
 
 # Function to print distro information
@@ -35,7 +55,7 @@ PrintDistroInfo() {
     local uptime=$6
 
     echo ""
-    echo -e "  ${logo}  ${name} ${bold}${gray}:: ${white}${user}${gray}@${white}${host} ${gray}:: ${white}${kernel} ${gray}:: ${white}${uptime}s${reset}"
+    echo -e "  ${logo}  ${name} ${bold}${gray}:: ${white}${user}${gray}@${white}${host} ${gray}:: ${white}${kernel} ${gray}:: ${white}${uptime}${reset}"
     echo ""
 }
 
@@ -49,8 +69,6 @@ PrintDistros() {
         done
     elif [[ -n "${alldistros[$distro_id]}" ]]; then
         echo -e "  ${alldistros[$distro_id]}  ${distro_id}${reset}"
-    elif [[ -n "${alldistros[$distro_nameid]}" ]]; then
-            echo -e "  ${alldistros[$distro_nameid]}  ${distro_nameid}${reset}"
     else
         echo -e "  ${gray}?_?  GNUthing to see here${reset}"
     fi
@@ -183,6 +201,7 @@ order+=("wolfi") ; alldistros[wolfi]="$red ,O,"
 order+=("zorin") ; alldistros[zorin]="$blue <Z>"
 
 # Parse arguments
+human_readable_uptime=false
 while [[ "$#" -gt 0 ]]; do
     case "$1" in
         -h|--help)
@@ -201,6 +220,15 @@ while [[ "$#" -gt 0 ]]; do
             else
                 echo -e "\n  ${gray}?_?  $1 requires an argument${reset}\n"
                 exit 1
+            fi
+            ;;
+        -t|--time)
+       		if [[ -n "$2" ]]; then
+        		echo -e "\n  ${gray}?_?  $1 doesn't accept any arguments${reset}\n"
+          		exit 1
+          	else
+         		human_readable_uptime=true
+             	shift
             fi
             ;;
         *)
@@ -232,12 +260,18 @@ distro_nameid="${NAME,,}"
 distro_name="${PRETTY_NAME}"
 distro_kernel="${KERNEL}"
 
+# Convert uptime if the flag is set
+if $human_readable_uptime; then
+    UPTIME=$(ConvertUptime "$UPTIME_SECONDS")
+else
+    UPTIME="${UPTIME_SECONDS}s"
+fi
+
 # Print distro information
 if [[ -n "${alldistros[$distro_id]}" ]]; then
-    PrintDistroInfo "${alldistros[$distro_id]}" "$distro_name" "$USER" "$HOST" "$distro_kernel" "$UPTIME_SECONDS"
+    PrintDistroInfo "${alldistros[$distro_id]}" "$distro_name" "$USER" "$HOST" "$distro_kernel" "$UPTIME"
 elif [[ -n "${alldistros[$distro_nameid]}" ]]; then
-    PrintDistroInfo "${alldistros[$distro_nameid]}" "$distro_name" "$USER" "$HOST" "$distro_kernel" "$UPTIME_SECONDS"
-else
-    echo -e "\n  ${gray}?_?  GNUthing to see here${reset}\n"
-    exit 1
+    PrintDistroInfo "${alldistros[$distro_nameid]}" "$distro_name" "$USER" "$HOST" "$distro_kernel" "$UPTIME"
+else # If the distro is no recognized it uses the default logo
+    PrintDistroInfo ".8." "$distro_name" "$USER" "$HOST" "$distro_kernel" "$UPTIME"
 fi
