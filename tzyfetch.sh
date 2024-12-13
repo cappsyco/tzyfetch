@@ -12,20 +12,51 @@ Usage:
 
 Options:
   -h, --help        Display this help message.
-  -d [ID]           Return the logo and name for a specific distro ID.
-  -d all            Print the logos and names for all distros tzyfetch knows about.
+  -d, --distro [ID] Return the logo and name for a specific distro ID.
+  -d, --distro all  Print the logos and names for all distros tzyfetch knows about.
 
 EOF
 }
 
-# Show help if requested
-while getopts ":h" option; do
-   case $option in
-      h)
-         Help
-         exit
-   esac
-done
+# Function to get system information
+GetSystemInfo() {
+	HOST=$(< /proc/sys/kernel/hostname)
+    KERNEL=$(< /proc/sys/kernel/osrelease)
+    UPTIME_SECONDS=$(cut -d. -f1 /proc/uptime)
+}
+
+# Function to print distro information
+PrintDistroInfo() {
+    local logo=$1
+    local name=$2
+    local user=$3
+    local host=$4
+    local kernel=$5
+    local uptime=$6
+
+    echo ""
+    echo -e "  ${logo}  ${name} ${bold}${gray}:: ${white}${user}${gray}@${white}${host} ${gray}:: ${white}${kernel} ${gray}:: ${white}${uptime}s${reset}"
+    echo ""
+}
+
+# Function to print distros
+PrintDistros() {
+    local distro_id=$1
+    echo ""
+    if [[ "$distro_id" == "all" ]]; then
+        for key in "${order[@]}"; do
+            echo -e "  ${alldistros[$key]}  ${key}${reset}"
+        done
+    elif [[ -n "${alldistros[$distro_id]}" ]]; then
+        echo -e "  ${alldistros[$distro_id]}  ${distro_id}${reset}"
+    elif [[ -n "${alldistros[$distro_nameid]}" ]]; then
+            echo -e "  ${alldistros[$distro_nameid]}  ${distro_nameid}${reset}"
+    else
+        echo -e "  ${gray}?_?  GNUthing to see here${reset}"
+    fi
+    echo ""
+    exit
+}
 
 # Main Script
 
@@ -54,6 +85,7 @@ lightcyan='\033[1;96m'
 declare -A alldistros
 declare -a order
 
+# Add distros
 order+=("adelie") ; alldistros[adelie]="$red _/\`"
 order+=("almalinux") ; alldistros[almalinux]="$blue {X}"
 order+=("alpine") ; alldistros[alpine]="$blue <^>"
@@ -147,97 +179,65 @@ order+=("ultramarine") ; alldistros[ultramarine]="$blue (;)"
 order+=("vanillaos") ; alldistros[vanillaos]="$yellow >*<"
 order+=("virtuozzo") ; alldistros[virtuozzo]="$red \\z/"
 order+=("void") ; alldistros[void]="$green (\\)"
-order+=("wolfi") ; alldistros[wolfi]="$red	,O,"
+order+=("wolfi") ; alldistros[wolfi]="$red ,O,"
 order+=("zorin") ; alldistros[zorin]="$blue <Z>"
 
-# Get host
-read -r HOST < /proc/sys/kernel/hostname
-
-# Get kernel
-read -r KERNEL < /proc/sys/kernel/osrelease
-
-# Get uptime in seconds
-IFS=. read -r s _ < /proc/uptime
-UPTIME_SECONDS=$((s))
-
-# Handle distro argument
-if [[ "$1" == "-d" ]] || [[ "$1" == "-distro" ]]; then
-    # Set basic info
-    distro_id="$2"
-    distro_nameid=""
-    distro_name=""
-    distro_kernel=""
-else
-    # Set OS info
-    if [[ -f /etc/os-release ]]; then
-        source /etc/os-release
-    else
-        echo "Error: /etc/os-release not found. Unable to determine distro."
-        exit 1
-    fi
-    distro_id="${ID}"
-    distro_nameid="${NAME,,}"
-    distro_name="${PRETTY_NAME}"
-    distro_kernel="${KERNEL}"
-fi
-
-# Set fallback flag
-fallback=true
-
-# Blank top
-echo ""
-
-# Find distro(s) and send to output
-for key in ${order[@]} ; do
-    set -- ${alldistros[$key]}
-    # If in 'all' mode
-    if [[ "$distro_id" == "all" ]] ; then
-		fallback=false
-        cat <<EOF
-  $1$2  ${key}${reset}
-EOF
-    # If distro has a match
-    elif [[ "$distro_id" == "$key" ]] || [[ "$distro_nameid" == "$key" ]] ; then
-        # If it's a match from the argument
-        if [[ "$distro_name" == "" ]] ; then
-            fallback=false
-            cat <<EOF
-  $1$2  ${key}${reset}
-
-EOF
-            exit
-        # Otherwise, print the full fetch based on the user system
-        else
-            fallback=false
-            cat <<EOF
-  $1$2  ${distro_name} ${bold}${gray}:: ${white}${USER}${gray}@${white}${HOST} ${gray}:: ${white}${distro_kernel} ${gray}:: ${white}${UPTIME_SECONDS}s${reset}
-
-EOF
-        fi
-        exit
-    fi
+# Parse arguments
+while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+        -h|--help)
+        	if [[ -n "$2" ]]; then
+         		echo -e "\n  ${gray}?_?  $1 doesn't accept any arguments${reset}\n"
+           		exit 1
+           	else
+            	Help
+             	exit 0
+            fi
+            ;;
+        -d|--distro)
+            if [[ -n "$2" ]]; then
+                distro_id="$2"
+                shift 2
+            else
+                echo -e "\n  ${gray}?_?  $1 requires an argument${reset}\n"
+                exit 1
+            fi
+            ;;
+        *)
+            echo -e "\n  ${gray}?_?  Unknown option: $1${reset}"
+            Help
+            exit 1
+            ;;
+    esac
 done
 
-# Generic fallback
-if [[ "$fallback" == true ]] ; then
-	# If it's a failed search
-	if [[ "$distro_name" == "" ]] ; then
-		cat <<EOF
-  ${gray}?_?  GNUthing to see here${reset}
+# Get system information
+GetSystemInfo
 
-EOF
-        exit
-	# Must be an unknown distro or LFS
-	else
-		cat <<EOF
-  $1.8.  ${distro_name} ${bold}${gray}:: ${white}${USER}${gray}@${white}${HOST} ${gray}:: ${white}${distro_kernel} ${gray}:: ${white}${UPTIME_SECONDS}s${reset}
-
-EOF
-		exit
-	fi
+# Handle distro argument if provided
+if [[ -n "$distro_id" ]]; then
+    PrintDistros "$distro_id"
 fi
 
-# Blank bottom
-echo ""
+# Set OS info
+if [[ -f /etc/os-release ]]; then
+    source /etc/os-release
+else
+    echo -e "\n  ${gray}?_?  /etc/os-release not found. Unable to determine distro${reset}\n"
+    exit 1
+fi
 
-exit
+distro_id="${ID}"
+distro_nameid="${NAME,,}"
+distro_name="${PRETTY_NAME}"
+distro_kernel="${KERNEL}"
+
+# Print distro information
+if [[ -n "${alldistros[$distro_id]}" ]]; then
+    PrintDistroInfo "${alldistros[$distro_id]}" "$distro_name" "$USER" "$HOST" "$distro_kernel" "$UPTIME_SECONDS"
+elif [[ -n "${alldistros[$distro_nameid]}" ]]; then
+    PrintDistroInfo "${alldistros[$distro_nameid]}" "$distro_name" "$USER" "$HOST" "$distro_kernel" "$UPTIME_SECONDS"
+else
+    echo -e "\n  ${gray}?_?  GNUthing to see here${reset}\n"
+    exit 1
+fi
