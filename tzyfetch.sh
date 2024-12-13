@@ -156,7 +156,7 @@ read -r KERNEL < /proc/sys/kernel/osrelease
 
 # Get uptime in seconds
 IFS=. read -r s _ < /proc/uptime
-UPS=$((s))
+UPTIME_SECONDS=$((s))
 
 # Handle distro argument
 if [[ "$1" == "-d" ]] || [[ "$1" == "-distro" ]]; then
@@ -167,7 +167,12 @@ if [[ "$1" == "-d" ]] || [[ "$1" == "-distro" ]]; then
     distro_kernel=""
 else
     # Set OS info
-    source /etc/os-release
+    if [[ -f /etc/os-release ]]; then
+        source /etc/os-release
+    else
+        echo "Error: /etc/os-release not found. Unable to determine distro."
+        exit 1
+    fi
     distro_id="${ID}"
     distro_nameid="${NAME,,}"
     distro_name="${PRETTY_NAME}"
@@ -203,7 +208,7 @@ EOF
         else
             fallback=false
             cat <<EOF
-  $1$2  ${distro_name} ${bold}${gray}:: ${white}${USER}${gray}@${white}${HOST} ${gray}:: ${white}${distro_kernel} ${gray}:: ${white}${UPS}s${reset}
+  $1$2  ${distro_name} ${bold}${gray}:: ${white}${USER}${gray}@${white}${HOST} ${gray}:: ${white}${distro_kernel} ${gray}:: ${white}${UPTIME_SECONDS}s${reset}
 
 EOF
         fi
@@ -223,7 +228,7 @@ EOF
 	# Must be an unknown distro or LFS
 	else
 		cat <<EOF
-  $1.8.  ${distro_name} ${bold}${gray}:: ${white}${USER}${gray}@${white}${HOST} ${gray}:: ${white}${distro_kernel} ${gray}:: ${white}${UPS}s${reset}
+  $1.8.  ${distro_name} ${bold}${gray}:: ${white}${USER}${gray}@${white}${HOST} ${gray}:: ${white}${distro_kernel} ${gray}:: ${white}${UPTIME_SECONDS}s${reset}
 
 EOF
 		exit
