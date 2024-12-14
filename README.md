@@ -1,4 +1,4 @@
-# **tzyfetch** .8.
+# **tzyfetch .8.**
 **tzyfetch** is an extremely simple fetch utility, built for a single line output featuring a unique, three character distro logo.
 
 ### **Install**
@@ -43,14 +43,24 @@ After installing, you can use the **tzyfetch** command as follows:
 	```sh
     tzyfetch
     ```
-- **Use *-d* or *--distro* to display the logo of a specific distro ID:**
+- **Use `-t` or `--time` to displays uptime in a human-readable format:**
+	```sh
+    tzyfetch -t
+    tzyfetch --time
+    ```
+- **Use `-d` or `--distro` to display the logo of a specific distro ID:**
 	```sh
     tzyfetch -d ubuntu
-    tzyfetch -distro freebsd
+    tzyfetch --distro freebsd
     ```
-- **Outputs all distro logos and IDs recognized by tzyfetch**
+    - **Outputs all distro logos and IDs recognized by tzyfetch**
+    	```sh
+     	tzyfetch -d all
+     	```
+- **Use `-h` or `--help` to prints the help information:**
 	```sh
-    tzyfetch -d all
+    tzyfetch -h
+    tzyfetch --help
     ```
 
 ### **Uninstall**
