@@ -14,7 +14,7 @@ Options:
   -h, --help        Display this help message.
   -d, --distro [ID] Return the logo and name for a specific distro ID.
   -d, --distro all  Print the logos and names for all distros tzyfetch knows about.
-  -t, --time        Display uptime in a human-readable format.
+  -s, --seconds     Display uptime in seconds.
 
 EOF
 }
@@ -204,7 +204,7 @@ order+=("wolfi") ; alldistros["wolfi"]=$red",O,"
 order+=("zorin") ; alldistros["zorin"]=$blue"<Z>"
 
 # Parse arguments
-human_readable_uptime=false
+human_readable_uptime=true
 while [[ "$#" -gt 0 ]]; do
     case "$1" in
         -h|--help)
@@ -223,6 +223,15 @@ while [[ "$#" -gt 0 ]]; do
             else
                 echo -e "\n  ${gray}?_?  $1 requires an argument${reset}\n"
                 exit 1
+            fi
+            ;;
+        -s|--seconds)
+          		if [[ -n "$2" ]]; then
+          		echo -e "\n  ${gray}?_?  $1 doesn't accept any arguments${reset}\n"
+          		exit 1
+           	else
+          		human_readable_uptime=false
+               	shift
             fi
             ;;
         -t|--time)
