@@ -1,3 +1,5 @@
+### [Now moved to Codeberg](https://codeberg.org/cappsy/tzyfetch)
+
 # **tzyfetch .8.**
 **tzyfetch** is an extremely simple fetch utility, built for a single line output featuring a unique, three character distro logo.
 
